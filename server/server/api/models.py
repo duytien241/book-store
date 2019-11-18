@@ -10,18 +10,16 @@ class Book(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255, null=True, blank=True, default='')
     price = models.IntegerField(null = False)
+    publish_at = models.IntegerField(null = True)
     author = models.CharField(max_length=255, null=True, blank=True)
+    type = models.CharField(max_length=255, null=True, blank=True)
     src_image = models.CharField(max_length=255, null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True,null=True)
+    updated_at = models.DateTimeField(auto_now=True,null=True)
+
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-class CartDetail(models.Model):
-    cart = models.ForeignKey(Cart, on_delete = models.CASCADE)
     book = models.ForeignKey(Book, on_delete = models.CASCADE)
     quantity = models.IntegerField(null=False, default=1)
     total_price = models.IntegerField(null=False, default=1)

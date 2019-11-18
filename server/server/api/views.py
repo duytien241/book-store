@@ -8,8 +8,8 @@ from rest_framework.parsers import MultiPartParser
 from django.http import JsonResponse
 from django.contrib.auth.password_validation import validate_password
 from django.shortcuts import get_object_or_404, redirect
-from .serializers import UserSerializer, PasswordSerializer
-from .models import User
+from .serializers import UserSerializer, PasswordSerializer, BookSerializer,  CartSerializer
+from .models import User, Book, Cart as CartDB
 import re
 
 class Me(APIView):
@@ -72,6 +72,41 @@ class EditIformationUser(viewsets.ModelViewSet):
             return Response(serializer.data)
         return JsonResponse({'message':'Bạn không có quyền truy cập!'}, status=status.HTTP_401_UNAUTHORIZED)
 
+class Books(generics.ListCreateAPIView):
+    serializer_class = BookSerializer
+    pagination_class = None
+    queryset = Book.objects.all()
+
+
+class Cart(generics.ListCreateAPIView):
+    serializer_class = CartSerializer
+    pagination_class = None
+    queryset = CartDB.objects.all()
+
+    def list(self, request):
+        queryset = CartDB.objects.filter(user_id = self.request.user)
+        serializer = CartSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+class DeleteCart(viewsets.ModelViewSet):
+    serializer_class = CartSerializer
+    queryset = CartDB.objects.all()
+    
+    def get_queryset(self):
+        queryset = CartDB.objects.all()
+        if not self.request.user.is_staff:
+            queryset = CartDB.objects.filter(user_id=self.request.user)
+        return queryset
+
+    def destroy(self, request, pk=None):
+        cart = self.get_object()
+        cart.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 class Users(generics.ListCreateAPIView):
     serializer_class = UserSerializer
     pagination_class = None
@@ -82,3 +117,18 @@ class Logout(APIView):
         # simply delete the token to force a login
         request.user.auth_token.delete()
         return Response(status=status.HTTP_200_OK)
+
+class BookIformationUser(viewsets.ModelViewSet):
+    serializer_class = BookSerializer
+
+
+    def retrieve(self, request, pk=None):
+        queryset = Book.objects.filter(pk=pk)
+        book = get_object_or_404(queryset, pk=pk)
+        serializer = BookSerializer(book)
+        return Response(serializer.data)
+    
+    def destroy(self, request, pk=None):
+        address = self.get_object()
+        address.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

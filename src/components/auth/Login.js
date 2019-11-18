@@ -21,7 +21,6 @@ class Login extends Component {
                     password: values.password
                 })
                     .then(res => {
-                        console.log(res);
                         Cookies.set('user_token', res.data.key)
                         window.location = "/profile";
                     })

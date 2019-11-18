@@ -1,36 +1,68 @@
 import React, { Component } from 'react';
-import { Card, Row, Col, InputNumber } from 'antd';
+import { Button, Row, Col, InputNumber, Typography } from 'antd';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
+const { Text } = Typography;
 class CartItem extends Component {
-    onChange = (value) => {
-        console.log('changed', value);
+    constructor(props) {
+        super(props);
+        this.state={
+            book: [],
+            quantity: 0
+        }
       }
+    onChange = (value) => {
+        this.props.setTotalDue((value - this.state.quantity)*value*this.state.book.price);
+        this.setState({quantity:value})
+    }
+    componentDidMount() {
+        axios.get("http://127.0.0.1:8000/v1/book/" +this.props.book, { headers: { "Authorization": `Token  ${Cookies.get('user_token')}` } })
+            .then(res => {
+                const book = res.data;
+                this.setState({ book: book, quantity: this.props.quantity });
+            })
+            .catch(error => console.log(error));
+        
+    }
+    deleteCart = () =>{
+        axios.delete("http://127.0.0.1:8000/v1/cart/" +this.props.cart, { headers: { "Authorization": `Token  ${Cookies.get('user_token')}` } })
+            .then(res => {
+                const book = res.data;
+                this.setState({ book: book});
+                console.log(book)
+            })
+            .catch(error => console.log(error));
+    }
     render() {
         return (
             <div>
-            
+
                 <Row>
                     <Col span={2} offset={2} >
-                    <img
-                        style={{ height: 80 , marginLeft: 10}}
-                        alt="example"
-                        src="https://sachvui.com/cover/2015/Dac-nhan-tam.jpg"
-                    />
+                        <img
+                            style={{ height: 80, marginLeft: 10 }}
+                            alt="example"
+                            src={window.location.origin+"/images/books/" +this.state.book.src_image}
+                        />
                     </Col>
-                    <Col span={8} style={{marginTop:15}}>
-                        Đắc nhân tâm
-                        <p>Tác giả</p>
+                    <Col span={4} style={{ marginTop: 15 }}>
+                        Tên: {this.state.book.name}
+                        <p>Tác giả: {this.state.book.author}</p>
                     </Col>
-                    <Col span={2} offset={4} style={{marginTop:15}}>
-                        Giá sản phẩm
+                    <Col span={4} style={{ marginTop: 15 }}>
+                    <Button type="link" onClick={this.deleteCart}>Xóa</Button>
                     </Col>
-                    <Col span={4} offset={2} style={{marginTop:15}}>
-                        <InputNumber min={1} max={10} defaultValue={1} onChange={this.onChange}/>
+                    <Col span={2} offset={4} style={{ marginTop: 15 }}>
+                        <Text style={{fontSize:20}} type="danger">{this.state.book.price}</Text>
+                    </Col>
+                    <Col span={4} offset={2} style={{ marginTop: 15 }}>
+                        <InputNumber min={1} max={10} defaultValue={this.props.quantity} onChange={this.onChange} />
                     </Col>
                 </Row>
                 <Row>
                     <Col span={20} offset={2}>
-                    <hr/>
+                        <hr />
                     </Col>
                 </Row>
                 {/* <div style={{width:1000, textAlign:'center'}}>

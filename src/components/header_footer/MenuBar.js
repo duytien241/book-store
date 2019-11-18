@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, Menu,  } from 'antd';
+import { Layout, Menu, Button } from 'antd';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -29,9 +29,10 @@ class MenuBar extends Component {
                                     </span>
                                 }
                             >
-                                <Menu.Item key="1">Trinh thám</Menu.Item>
-                                <Menu.Item key="2">Tiểu thuyết</Menu.Item>
-                                <Menu.Item key="3">Tự thuật</Menu.Item>
+                                <Menu.Item key="0"><Button type="link" onClick={()=>this.props.searchType('all')}>Tất cả</Button></Menu.Item>
+                                <Menu.Item key="1"><Button type="link" onClick={()=>this.props.searchType('Trinh thám')}>Trinh thám</Button></Menu.Item>
+                                <Menu.Item key="2"><Button type="link" onClick={()=>this.props.searchType('Tiểu thuyết')}>Tiểu thuyết</Button></Menu.Item>
+                                <Menu.Item key="3"><Button type="link" onClick={()=>this.props.searchType('Tự thuật')}>Tự thuật</Button></Menu.Item>
                             </SubMenu>
                             
                             <SubMenu

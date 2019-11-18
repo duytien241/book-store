@@ -36,11 +36,15 @@ const menu = (
 );
 
 class Header2 extends Component {
-  state = {
-    visible: false,
-    showHeader: false,
-    islog: 0,
-  };
+  constructor(props) {
+    super(props);
+    this.state={
+      visible: false,
+      showHeader: false,
+      islog: 0,
+    }
+  }
+  
 
   componentDidMount() {
     window.addEventListener('scroll', this.showHeader);
@@ -88,7 +92,7 @@ class Header2 extends Component {
             boxShadow: 'none',
             float: 'right'
           }}>
-          <Link to="/login" >Đăng nhập</Link>
+          <Link to="/login">Đăng nhập</Link>
         </Button>
       )
     }
@@ -104,9 +108,11 @@ class Header2 extends Component {
           marginRight: 20,
           width: 50
         }}>
-        <Badge count={0} showZero>
-        <Link to="/cart" ><Icon type="shopping-cart" style={{ fontSize: '30px'}}  /></Link>
+        <Link to="/cart" >
+        <Badge count={this.props.count} showZero>
+        <Icon type="shopping-cart" style={{ fontSize: '30px'}}/>
         </Badge>
+        </Link>
       </Button>
     }
     else {
@@ -138,8 +144,8 @@ class Header2 extends Component {
             zIndex: 3,
           }}
         >
-          <span style={{ color: 'white', fontSize: '18px' }}> <Link to="/" >Book Store</Link></span>
-          <span style={{ color: 'white', fontSize: '18px', marginLeft:20 }}> <Link to="/books" >Sản phẩm</Link></span>
+          <Link to="/" ><span style={{ color: 'white', fontSize: '18px' }}> Book Store</span></Link>
+           <Link to="/books" ><span style={{ color: 'white', fontSize: '18px', marginLeft:20 }}>Sản phẩm</span></Link>
           {this.showHeadrButton()}
           {this.showHeadrButton2()}
           {/* <Button 
