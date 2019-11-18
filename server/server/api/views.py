@@ -10,6 +10,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.shortcuts import get_object_or_404, redirect
 from .serializers import UserSerializer, PasswordSerializer
 from .models import User
+import re
 
 class Me(APIView):
     permission_classes = (IsAuthenticated,)
@@ -27,6 +28,7 @@ class ChangePassword(APIView):
     def put(self, request, *args, **kwargs):
         self.object = self.get_object()
         serializer = PasswordSerializer(data=request.data)
+        print(serializer)
 
         if serializer.is_valid():
             old_password = serializer.data.get("old_password")

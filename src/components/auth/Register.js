@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
-import { Button, Card, Row, Col, Form, Input, Tooltip, Icon } from 'antd';
+import { Button, Card, Row, Col, Form, Input, Tooltip, Icon, Alert } from 'antd';
 import {  Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import book_cover from '../../resources/images/book_cover.jpg';
 import axios from 'axios';
 
 class Register extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            message:'',
+        }
+      }
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
@@ -24,7 +31,7 @@ class Register extends Component {
                             })
                             .catch(error => console.log(error));
                     })
-                    .catch(error => console.log(error));
+                    .catch(error => this.setState({message:'Đăng ký không thành công!'}));
             }
         });
     };
@@ -52,6 +59,13 @@ class Register extends Component {
             callback();
         }
     }
+    showMessage = ()=>{
+        if(this.state.message){
+            return <Alert message={this.state.message} type="error" />
+        }
+        else 
+        return <div></div>
+    };
     render() {
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
@@ -82,7 +96,7 @@ class Register extends Component {
             <Row
                 type="flex"
                 justify="center"
-                style={{ backgroundImage: `url("https://d1nz104zbf64va.cloudfront.net/dt/a/o/top-7-books-that-changed-the-world.jpg")`, width: window.width, height: window.outerHeight }}
+                style={{ backgroundImage: `url(${book_cover})`, width: window.width, height: window.outerHeight }}
             >
                 <Col>
                     <Card title="Đăng ký tài khoản" style={{ width: window.innerWidth / 3, marginTop: `150px` }}>

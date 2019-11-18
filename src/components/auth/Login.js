@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Card, Row, Col, Form, Input, Tooltip, Icon, Checkbox, Alert } from 'antd';
 import {  Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import book_cover from '../../resources/images/book_cover.jpg';
 import axios from 'axios';
 
 class Login extends Component {
@@ -24,7 +25,7 @@ class Login extends Component {
                         Cookies.set('user_token', res.data.key)
                         window.location = "/profile";
                     })
-                    .catch(error =>  this.setState({message:'Đổi thông tin không thành công!'}));
+                    .catch(error =>  this.setState({message:'Đăng nhập không thành công!'}));
             }
         });
     };
@@ -101,7 +102,7 @@ class Login extends Component {
             <Row
                 type="flex"
                 justify="center"
-                style={{ backgroundImage: `url("http://genknews.genkcdn.vn/thumb_w/640/2019/photo1567395403262-1567395403563-crop-1567395418131328549048.jpg")`, width: window.width, height: window.outerHeight }}
+                style={{ backgroundImage: `url(${book_cover})`, width: window.width, height: window.outerHeight }}
             >
                 <Col>
                     <Card title="Đăng nhập" style={{ width: window.innerWidth / 2.5, marginTop: `150px` }}>

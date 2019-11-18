@@ -3,30 +3,35 @@ import { Table, Divider, Tag } from 'antd';
 
 const columns = [
   {
-    title: 'Name',
+    title: 'Tên sách',
     dataIndex: 'name',
     key: 'name',
     render: text => <a>{text}</a>,
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
+    title: 'Giá',
+    dataIndex: 'price',
+    key: 'price',
+    render: price =>{
+      return <span style={{color:'red'}} >
+        {price} đ
+      </span>
+    }
   },
   {
-    title: 'Address',
+    title: 'Địa chỉ nhận hàng',
     dataIndex: 'address',
     key: 'address',
   },
   {
-    title: 'Tags',
+    title: 'Trạng thái',
     key: 'tags',
     dataIndex: 'tags',
     render: tags => (
       <span>
         {tags.map(tag => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
+          let color = 'green';
+          if (tag === 'Đơn bị hủy') {
             color = 'volcano';
           }
           return (
@@ -38,40 +43,40 @@ const columns = [
       </span>
     ),
   },
-  {
-    title: 'Action',
-    key: 'action',
-    render: (text, record) => (
-      <span>
-        <a>Invite {record.name}</a>
-        <Divider type="vertical" />
-        <a>Delete</a>
-      </span>
-    ),
-  },
+  // {
+  //   title: 'Action',
+  //   key: 'action',
+  //   render: (text, record) => (
+  //     <span>
+  //       <a>Invite {record.name}</a>
+  //       <Divider type="vertical" />
+  //       <a>Delete</a>
+  //     </span>
+  //   ),
+  // },
 ];
 
 const data = [
   {
     key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
+    name: 'Nhà giả kim',
+    price: 32000,
+    address: 'Số 1 Đại Cồ việt',
+    tags: ['Đã giao hàng'],
   },
   {
     key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
+    name: 'Nhập môn ATTTT',
+    price: 42000,
+    address: 'Số 1 Đại Cồ việt',
+    tags: ['Đơn bị hủy'],
   },
   {
     key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
+    name: 'Đắc nhân tâm',
+    price: 32000,
+    address: 'Số 1 Đại Cồ việt',
+    tags: ['Đã giao hàng'],
   },
 ];
 

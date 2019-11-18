@@ -117,7 +117,7 @@ class Profile extends Component {
                                     message: 'Vui lòng điền địa chỉ email!',
                                 },
                             ],
-                        })(<Input />)}
+                        })(<Input  disabled/>)}
                     </Form.Item>
                     <Form.Item
                         label={
@@ -131,7 +131,7 @@ class Profile extends Component {
                     >
                         {getFieldDecorator('username', {
                             rules: [{ required: true, whitespace: true }],
-                        })(<Input />)}
+                        })(<Input disabled />)}
                     </Form.Item>
                     <Form.Item label="Họ">
                         {getFieldDecorator('first_name', {
@@ -145,17 +145,17 @@ class Profile extends Component {
                     </Form.Item>
                     <Form.Item label="Phone Number">
                         {getFieldDecorator('phone', {
-                            rules: [{ required: true, message: 'Vui lòng nhập số điện thoại hợp lệ' }],
+                            rules: [{ required: false, message: 'Vui lòng nhập số điện thoại hợp lệ' }],
                         })(<Input addonBefore={prefixSelector} style={{ width: '100%' }} />)}
                     </Form.Item>
-                    <Form.Item label="Giới tính">
+                    {/* <Form.Item label="Giới tính">
                         <InputGroup compact>
                             <Select defaultValue="Nam">
                                 <Option value="Nam">Nam</Option>
                                 <Option value="Nu">Nữ</Option>
                             </Select>
                         </InputGroup>
-                    </Form.Item>
+                    </Form.Item> */}
                     <Form.Item label="Địa chỉ">
                         {getFieldDecorator('address', {
                             rules: [{ required: false, whitespace: true }],

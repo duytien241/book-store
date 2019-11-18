@@ -27,7 +27,7 @@ class ChangePassword extends Component {
                         window.location("/changepassword")
                     })
                     .catch(error => {
-                        this.setState({message:'Đổi mật khẩu không thành công!'});
+                        this.setState({message:'Đổi mật khẩu không thành công! Vui lòng kiểm tra lại mật khẩu cũ.'});
                     });
             }
         });

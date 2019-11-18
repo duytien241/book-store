@@ -7,6 +7,12 @@ import { Card, Row, Col, Typography, Button } from 'antd';
 const { Text } = Typography;
 
 class Cart extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            isShip: true;
+        }
+      }
     render() {
         return (
             <div>
@@ -25,7 +31,7 @@ class Cart extends Component {
                     }}>
                             <b>Thành Tiền:</b>
                         <Text style={{ fontSize: 30, marginLeft:30 }} type="danger">200000</Text>
-                        <Button type="danger" style ={{width:'290px'}} >
+                        <Button type="danger" style ={{width:'290px'}}  >
                             Đặt hàng
                         </Button>
 

@@ -5,7 +5,7 @@ import ButtonPurchase from '../utils/ButtonPurchase';
 class Discount extends Component {
     state = {
         discountStart: 0,
-        discountEnd: 30
+        discountEnd: 26
     }
 
     porcentage = () => {

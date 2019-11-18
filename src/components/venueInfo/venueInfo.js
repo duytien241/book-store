@@ -34,7 +34,7 @@ class VunueInfo extends Component {
                                     </div>
                                 </div>
                             </Zoom>
-                            <Zoom duration={500} delay={500}>
+                            <Zoom duration={500} delay={300}>
                                 <div className="vn_item">
                                     <div className="vn_outer">
                                         <div className="vn_inner">
